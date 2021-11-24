@@ -1,0 +1,13 @@
+# dependencies
+/node_modules
+dist
+coverage
+
+# IDE
+.idea
+.project
+.strong-pm
+.vscode
+
+# Environment
+.env
