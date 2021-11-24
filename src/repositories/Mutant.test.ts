@@ -13,9 +13,16 @@ describe('Mutant Model', () => {
 
   beforeEach(() => {
     mutantModel = {
+      hash: "5513f4ef921938e1e782e346247f2855939d002a",
       dna: ["AATG", "CATG", "TAGC", "AAAA"],
       isMutant: false,
     };
+  });
+
+  it('should call the BaseMongoose.model.findOne', async () => {
+    jest.spyOn(FakeMutant.fakeModel(), 'findOne').mockReturnValue({} as any);
+    await FakeMutant.findOne({} as any);
+    expect(FakeMutant.fakeModel().findOne).toHaveBeenCalledTimes(1);
   });
 
   it('should call the BaseMongoose.model.create', async () => {
@@ -26,6 +33,7 @@ describe('Mutant Model', () => {
 
   it('should create a new Mutant object', () => {
     const mutant = new Mutant({
+      hash: "5513f4ef921938e1e782e346247f2855939d002a",
       dna: ["AATG", "CATG", "TAGC", "AAAA"],
       isMutant: false,
     });

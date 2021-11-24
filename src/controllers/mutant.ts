@@ -1,7 +1,8 @@
 import { DefaultContext } from 'koa';
 import Mutant from '../repositories/Mutant';
+import hash from 'object-hash';
 
-const IsMutant = (ctx: DefaultContext) => {
+const IsMutant = async (ctx: DefaultContext) => {
 
   const { request: { body: { dna } } } = ctx;
 
@@ -12,8 +13,13 @@ const IsMutant = (ctx: DefaultContext) => {
 
   const isMutant = totalSequencesFound > 1;
 
-  Mutant.create({dna, isMutant});
-  
+  const hashString = hash(dna);
+  const mutants = await Mutant.findOne({hash: hashString});
+
+  if (!mutants) {
+    Mutant.create({hash: hashString, dna, isMutant});
+  }
+
   if (!isMutant) {
     ctx.throw(403, isMutant);
   }

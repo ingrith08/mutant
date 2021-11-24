@@ -6,6 +6,7 @@ import statController from './stat';
 import Mutant from '../repositories/Mutant';
 
 const payload = {
+    hash: "5513f4ef921938e1e782e346247f2855939d002a",
     dna: ["AAAA", "AATG", "AAGC", "CCCC"],
     isMutant: true,
   };

@@ -25,8 +25,15 @@ const decorator_1 = __importDefault(require("./decorator"));
 let Mutant = Mutant_1 = class Mutant extends BaseMongoose_1.default {
     constructor(data) {
         super(Mutant_1.getDoc(data));
+        this.hash = data.hash;
         this.dna = data.dna;
         this.isMutant = data.isMutant;
+    }
+    static findOne(query) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const mutant = yield this.model.findOne(query);
+            return mutant;
+        });
     }
     static create(data) {
         return __awaiter(this, void 0, void 0, function* () {

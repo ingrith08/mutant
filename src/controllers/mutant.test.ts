@@ -3,6 +3,15 @@ import Router from 'koa-router';
 import bodyParser from 'koa-bodyparser';
 import supertest from 'supertest';
 import mutantController from './mutant';
+import Mutant from '../repositories/Mutant';
+
+const payload = {
+  hash: "5513f4ef921938e1e782e346247f2855939d002a",
+  dna: ["AAAA", "AATG", "AAGC", "CCCC"],
+  isMutant: true,
+};
+
+Mutant.findOne = jest.fn(() => new Mutant(payload) as any);
 
 describe('Copons Endpoint', () => {
   let app: Koa;

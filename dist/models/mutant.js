@@ -22,6 +22,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.mutantModel = exports.MuntantSchema = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 exports.MuntantSchema = new mongoose_1.Schema({
+    hash: {
+        type: String,
+        required: true,
+        unique: true,
+    },
     dna: {
         type: [String],
     },

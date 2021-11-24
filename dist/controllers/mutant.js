@@ -1,23 +1,37 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Mutant_1 = __importDefault(require("../repositories/Mutant"));
-const IsMutant = (ctx) => {
+const object_hash_1 = __importDefault(require("object-hash"));
+const IsMutant = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     const { request: { body: { dna } } } = ctx;
     const horizontalSequence = getHorizontalSecuences(dna);
     const verticalSequence = getVerticalSecuences(dna);
     const diagonalSequence = getDiagonalSecuences(dna);
     const totalSequencesFound = horizontalSequence + verticalSequence + diagonalSequence;
     const isMutant = totalSequencesFound > 1;
-    Mutant_1.default.create({ dna, isMutant });
+    const hashString = (0, object_hash_1.default)(dna);
+    const mutants = yield Mutant_1.default.findOne({ hash: hashString });
+    if (!mutants) {
+        Mutant_1.default.create({ hash: hashString, dna, isMutant });
+    }
     if (!isMutant) {
         ctx.throw(403, isMutant);
     }
     ctx.status = 200;
     ctx.body = isMutant;
-};
+});
 const getHorizontalSecuences = (dna) => {
     let sequences = 0;
     dna.map((row) => {

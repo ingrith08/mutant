@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 import { MutantI, mutantModel, MuntantSchema } from '../models/mutant';
-import BaseMongoose from './BaseMongoose';
+import BaseMongoose, { Query } from './BaseMongoose';
 import MongooseDecorator from './decorator';
 
 type MutantDocument = MutantI & Document;
@@ -12,14 +12,22 @@ interface StatI {
 
 @MongooseDecorator<MutantI>(mutantModel, MuntantSchema)
 class Mutant extends BaseMongoose<MutantI> implements MutantI {
+  hash: string;
   dna: Array<string>;
   isMutant: boolean;
 
   constructor(data: MutantI | MutantDocument) {
     super(Mutant.getDoc<MutantI>(data));
 
+    this.hash = data.hash;
     this.dna = data.dna;
     this.isMutant = data.isMutant;
+  }
+
+  static async findOne(query: Query): Promise<MutantDocument> {
+    const mutant = await this.model.findOne(query);
+
+    return mutant as MutantDocument;
   }
 
   static async create(data: MutantI): Promise<MutantDocument> {
