@@ -1,0 +1,1 @@
+{"version":3,"file":"BaseMongoose.js","sourceRoot":"","sources":["../../src/repositories/BaseMongoose.ts"],"names":[],"mappings":";;AAMA,MAAe,YAAY;IAMzB,YAAY,GAAyB;QACnC,IAAI,CAAC,QAAQ,GAAG,GAAG,CAAC;IACtB,CAAC;IAES,MAAM,CAAC,MAAM,CAAI,IAAO;QAChC,MAAM,OAAO,GAAG,IAAI,CAAC,KAAiB,CAAC;QACvC,OAAO,IAAI,OAAO,CAAC,IAAI,CAAC,CAAC;IAC3B,CAAC;CACF;AAED,kBAAe,YAAY,CAAC"}
